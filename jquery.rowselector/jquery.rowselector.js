@@ -55,6 +55,7 @@
     };
 
     var selectClass = 'selected';
+    var noTrSelectClass = 'no-rowselector';
 
     $.fn.rowSelector = function() {
         return this.each(function() {
@@ -91,6 +92,9 @@
                 var p = e.target;
                 while ( p != this && p.tselect !== true ) {
                     p = p.parentNode;
+                }
+                if ($(p).hasClass(selectClass) || $(p).closest('tr').hasClass(noTrSelectClass)) {
+                    return;
                 }
                 if ( p.tselect === true ) {
                     $(p).closest('TBODY').find('th.'+selectClass+',td.'+selectClass).removeClass(selectClass);
